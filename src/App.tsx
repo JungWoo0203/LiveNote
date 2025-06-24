@@ -1,35 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import type { Note } from "./types";
+import { NoteEditor } from "./components/NoteEditor";
+import { NoteList } from "./components/NoteList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const savedNotes = localStorage.getItem("live-notes");
+    if (savedNotes) {
+      setNotes(JSON.parse(savedNotes));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("live-notes", JSON.stringify(notes));
+  }, [notes]);
+
+  const handleNoteSelect = (note: Note) => {
+    setSelectedNoteId(note.id);
+  };
+
+  const handleNoteUpdate = (id: string, title: string, content: string) => {
+    const updatedNotes = notes.map((note) =>
+      note.id === id ? { ...note, title, content } : note
+    );
+    setNotes(updatedNotes);
+  };
+
+  const handleNewNote = () => {
+    const newNote: Note = {
+      id: Date.now().toString(),
+      title: "New Note",
+      content: "",
+    };
+    setNotes([newNote, ...notes]);
+    setSelectedNoteId(newNote.id);
+  };
+
+  const handleNoteDelete = (id: string) => {
+    setNotes(notes.filter((note) => note.id !== id));
+    if (selectedNoteId === id) {
+      setSelectedNoteId(null);
+    }
+  };
+
+  const handleBack = () => {
+    setSelectedNoteId(null);
+  };
+
+  const selectedNote = selectedNoteId
+    ? notes.find((note) => note.id === selectedNoteId)
+    : null;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app-container">
+      {selectedNote ? (
+        <NoteEditor
+          note={selectedNote}
+          onUpdate={handleNoteUpdate}
+          onBack={handleBack}
+        />
+      ) : (
+        <NoteList
+          notes={notes}
+          onNoteSelect={handleNoteSelect}
+          onNewNote={handleNewNote}
+          onNoteDelete={handleNoteDelete}
+        />
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
