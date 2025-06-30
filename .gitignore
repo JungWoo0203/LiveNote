@@ -1,26 +1,48 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # Dependencies
 /node_modules
-/dist
+/.pnp
+.pnp.js
+.pnp.cjs
+
+# Next.js
+/.next/
+/out/
+
+# Production
 /build
 
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# Vite-specific
-.vite/
+# SWC
+/.swc/
 
 # Logs
+logs
 *.log
 npm-debug.log*
-yarn-error.log*
 yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# OS-specific
+# Env
+.env
+.env*.local
+
+# OS
 .DS_Store
 Thumbs.db
 
-# Yarn-specific
-.pnp.*
+# Tests
+/coverage
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 .yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
