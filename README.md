@@ -1,54 +1,39 @@
-# React + TypeScript + Vite
+# LiveNote
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+실시간으로 노트를 공유하고 편집할 수 있는 웹 애플리케이션입니다.
 
-Currently, two official plugins are available:
+## 시작하기
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+프로젝트를 로컬 환경에서 실행하려면 다음 단계를 따르세요.
 
-## Expanding the ESLint configuration
+### 1. 저장소 복제
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/your-username/LiveNote.git
+cd LiveNote
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. 의존성 설치
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+이 프로젝트는 `yarn`을 사용합니다. 다음 명령어를 실행하여 필요한 패키지를 설치하세요.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+yarn install
 ```
+
+### 3. 개발 서버 실행
+
+의존성 설치가 완료되면, 다음 명령어로 개발 서버를 시작할 수 있습니다.
+
+```bash
+yarn dev
+```
+
+이제 브라우저에서 [http://localhost:3000](http://localhost:3000)으로 접속하여 애플리케이션을 확인할 수 있습니다.
+
+## 사용 가능한 스크립트
+
+- `yarn dev`: 개발 모드에서 Next.js 앱을 실행합니다.
+- `yarn build`: 프로덕션을 위한 앱을 빌드합니다.
+- `yarn start`: 빌드된 앱을 프로덕션 모드에서 실행합니다.
+- `yarn lint`: ESLint를 사용하여 코드 스타일을 검사합니다.
